@@ -1,0 +1,17 @@
+node  { 
+    stage  "Crea output di build"
+    
+    // Crea la directory di output. 
+    sh  "mkdir -p output"
+
+    // Scrive un file utile, che deve essere archiviato. 
+    writeFile  file:  "output/usefulfile.txt" ,  testo:  "Questo file è utile, è necessario archiviarlo."
+
+    // Scrive un file inutile, che non è necessario archiviare. 
+    file writeFile  :  "output/uselessfile.md" ,  testo:  "Questo file è inutile, non c'è bisogno di archiviarlo."
+
+    fase  "Archivia l'output della build"
+    
+    // Archivia gli artefatti di output della build. 
+    artefatti archiveArtifacts  :  'output/*.txt' ,  esclude:  'output/*.md' 
+}
